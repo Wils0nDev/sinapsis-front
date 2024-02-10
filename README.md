@@ -12,9 +12,8 @@
 
 - Para este proyecto se uso una librería que simula un ApiRest mediante un archivo json, esta librería me da mas libertad para poder hacer uso de peticiones como post, get, patch, delete. 
 - Me ayuda a simular un entorno real.
-
-ApiRest : data/db.json
-librería : json-server
+1. ApiRest : data/db.json 
+2. librería : json-server
 
 - Para el diseño se usaron dos liberías
  - Angular Material
