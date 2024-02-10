@@ -1,0 +1,35 @@
+:host {
+    display: flex;
+}
+
+.mat-mdc-snack-bar-action mat-icon{
+    margin-right: 0px;
+    font-weight: bold;
+}
+.snack-icon {
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+    margin-bottom: 1px;
+}
+
+.mat-mdc-snack-bar-label {
+    font-weight: 400;
+    padding-left: 5px;  
+}
+
+.success-label{
+    color: #0f5132 !important;
+}
+
+.error-label{
+    color: #842029 !important;
+}
+
+.warning-label{
+    color: #664d03 !important;
+}
+
+.info-label{
+    color: #084298 !important;
+}

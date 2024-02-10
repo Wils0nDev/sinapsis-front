@@ -1,0 +1,38 @@
+<mat-form-field appearance="outline" [formGroup]="formulario"
+
+>
+  <mat-label>Heroes</mat-label>
+  <input
+    #searchHero
+    type="text"
+    aria-label="Number"
+    [formControlName]="name"
+      matInput
+    [matAutocomplete]="autoWorker"
+  />
+  <button
+    mat-button
+    matSuffix
+    (click)="Tools.clearForm(formulario, name)"
+    *ngIf="searchHero.value"
+    autocomplete="off"
+  >
+  <mat-icon>delete</mat-icon>
+  </button>
+
+  <mat-autocomplete
+    autoActiveFirstOption
+    #autoWorker="matAutocomplete"
+
+  >
+    <mat-option
+      *ngFor="let hero of filteredHero | async"
+      [value]="hero"
+      (onSelectionChange)="heroChange(hero)"
+    >
+      {{hero }}
+    </mat-option>
+  </mat-autocomplete>
+
+</mat-form-field>
+

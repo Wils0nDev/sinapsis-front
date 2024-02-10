@@ -1,0 +1,11 @@
+<span class="snack-icon">
+    <mat-icon>{{ getTypeIcon() }}</mat-icon>
+</span>
+<span matSnackBarLabel [ngClass]="getTypeClass()">
+    {{ snackbarData.Message }}
+</span>
+<span matSnackBarActions>
+    <button mat-button matSnackBarAction (click)="matSnackbarRef.dismissWithAction()">
+        <mat-icon>close</mat-icon>
+    </button>
+</span>

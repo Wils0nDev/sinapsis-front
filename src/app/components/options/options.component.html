@@ -1,0 +1,9 @@
+<mat-nav-list>
+    <mat-list-item *ngFor="let option of listOptions"
+    [routerLink]="option.url"
+    (click)="hideSideNav()"
+    >
+    <mat-icon matListItemIcon>{{option.icon}}</mat-icon>
+    {{option.label}}
+    </mat-list-item>
+</mat-nav-list>
