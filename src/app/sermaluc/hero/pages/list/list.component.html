@@ -5,19 +5,17 @@
   <div class="col p-6">
     <mat-card>
       <mat-card-content>
-       
         <div class="col" style="text-align: right">
-         
           <div class="col-12" class="button_action_flex">
             <button
-            mat-icon-button
-            type="button"
-            (click)="search()"
-            class="btn btn-success"
-            color="primary"
-          >
-            <mat-icon>search</mat-icon>
-          </button>
+              mat-icon-button
+              type="button"
+              (click)="search()"
+              class="btn btn-success"
+              color="primary"
+            >
+              <mat-icon>search</mat-icon>
+            </button>
             <button
               mat-icon-button
               [ngClass]="{ rotate180: !isHidden, 'rotate-back': isHidden }"
@@ -44,83 +42,99 @@
     </mat-card>
   </div>
 
-  <div class="col-12 p-6">
+  <div class="col-12 p-3">
     <div class="mat-elevation-z8">
-      
-      <table mat-table [dataSource]="dataSource" matSort>
-
+      <mat-table [dataSource]="dataSource">
+        <!-- User name Definition -->
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Accion</th>
-          <td mat-cell *matCellDef="let row">
-
-            <button 
-            (click)="deleteHero(row)"
-            mat-icon-button 
-            color="primary">
+          <mat-header-cell *matHeaderCellDef>Accion </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <button (click)="deleteHero(row)" mat-icon-button color="primary">
               <mat-icon>delete</mat-icon>
             </button>
 
-            <button mat-icon-button color="primary"
+            <button
+              mat-icon-button
+              color="primary"
               (click)="navitateEdit(row.id)"
-              >
+            >
               <mat-icon>edit</mat-icon>
-            </button>
-
-          </td>
+            </button></mat-cell
+          >
         </ng-container>
 
+        <!-- Age Definition -->
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-          <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+          <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
         </ng-container>
 
+        <!-- Title Definition -->
         <ng-container matColumnDef="superhero">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>SuperHeroe</th>
-          <td mat-cell *matCellDef="let row">{{ row.superhero }}</td>
+          <mat-header-cell *matHeaderCellDef> SuperHeroe </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.superhero }} </mat-cell>
         </ng-container>
-
         <ng-container matColumnDef="publisher">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Editora</th>
-          <td mat-cell *matCellDef="let row">{{ row.publisher }}</td>
+          <mat-header-cell *matHeaderCellDef> Editora </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.publisher }} </mat-cell>
         </ng-container>
-
         <ng-container matColumnDef="alter_ego">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Actor</th>
-          <td mat-cell *matCellDef="let row">{{ row.alter_ego }}</td>
+          <mat-header-cell *matHeaderCellDef> Actor </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.alter_ego }} </mat-cell>
         </ng-container>
-
         <ng-container matColumnDef="first_appearance">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <mat-header-cell *matHeaderCellDef>
             Primera Aparición
-          </th>
-          <td mat-cell *matCellDef="let row">{{ row.first_appearance }}</td>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.first_appearance }}
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="characters">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Caracteristicas
-          </th>
-          <td mat-cell *matCellDef="let row">{{ row.characters }}</td>
+          <mat-header-cell *matHeaderCellDef> Caracteristicas </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.characters }} </mat-cell>
         </ng-container>
-
         <ng-container matColumnDef="foto">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Foto
-          </th>
-          <td mat-cell *matCellDef="let row">
-            <img  width="50px" [src]="row | HeroImage " [alt]="row.superhero">
-          </td>
+          <mat-header-cell *matHeaderCellDef> Foto </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <img width="50px" [src]="row | HeroImage" [alt]="row.superhero" />
+          </mat-cell>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
+        <!-- Header and Row Declarations -->
+        <mat-header-row
+          *matHeaderRowDef="[
+            'action',
+            'id',
+            'superhero',
+            'publisher',
+            'alter_ego',
+            'first_appearance',
+            'characters',
+            'foto'
+          ]"
+        ></mat-header-row>
+        <mat-row
+          *matRowDef="
+            let row;
+            columns: [
+              'action',
+              'id',
+              'superhero',
+              'publisher',
+              'alter_ego',
+              'first_appearance',
+              'characters',
+              'foto'
+            ]
+          "
+        ></mat-row>
+      </mat-table>
       <mat-paginator
-        [pageSizeOptions]="[5, 10, 20]"
-        showFirstLastButtons
-        aria-label="Select page of periodic elements"
-      >
-      </mat-paginator>
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        aria-label="Select page of users"
+      ></mat-paginator>
     </div>
   </div>
 </div>

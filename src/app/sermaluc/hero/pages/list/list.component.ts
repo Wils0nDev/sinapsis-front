@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogResponseComponent } from 'src/app/components/dialog-response/dialog-response.component';
 import { MessageControlService } from '../../../../../shared/services/message-control.service';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-list',
@@ -21,6 +22,7 @@ export class ListComponent implements OnInit {
    searchForm: any;
    isHidden = false;
    @ViewChild(MatPaginator) paginator!: MatPaginator;
+   @ViewChild(MatSort) sort!: MatSort;
    @ViewChild(MatTable) table!: MatTable<Hero>;
 
    displayedColumns: string[] = [
@@ -88,6 +90,7 @@ export class ListComponent implements OnInit {
   getDataSource(heroes:Hero[]){
     this.dataSource = new MatTableDataSource(heroes);
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   deleteHero(hero:Hero){
