@@ -4,12 +4,8 @@ import { Cliente } from '../../interfaces/cliente.interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { LocalService } from 'src/shared/services/local.service';
-import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { MessageControlService } from '../../../../../shared/services/message-control.service';
 import { MatSort } from '@angular/material/sort';
-import { ClienteService } from '../../services/cliente.service';
 import * as util from 'src/shared/utils/utils';
 import { State, StateEnvio } from '../../interfaces/state-send.interface';
 import { Mensaje, sendFilter } from '../../interfaces/mensaje.interface';
@@ -56,10 +52,6 @@ export class ListComponent implements OnInit {
    dataSource!: MatTableDataSource<Mensaje>;
    constructor(
     private filtroService : FiltroService,
-    private clienteService : ClienteService,
-    private localService: LocalService,
-    private router : Router,
-    private dialog: MatDialog,
     private messageControlService : MessageControlService
 
    ){

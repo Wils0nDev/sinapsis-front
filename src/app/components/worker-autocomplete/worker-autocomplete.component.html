@@ -27,7 +27,7 @@
     <mat-option
       *ngFor="let cliente of filteredCliete | async"
       [value]="cliente.nombre"
-      (onSelectionChange)="heroChange(cliente)"
+      (onSelectionChange)="clienteChange(cliente)"
     >
       {{cliente.nombre }}
     </mat-option>

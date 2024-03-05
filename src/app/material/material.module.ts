@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -35,7 +35,6 @@ export const MY_FORMATS = {
 @NgModule({
   exports:[
     MatAutocompleteModule,
-    MatButtonModule,
     MatCardModule,
     MatChipsModule,
     MatDialogModule,
@@ -51,7 +50,9 @@ export const MY_FORMATS = {
     MatToolbarModule,
     MatTableModule,
     MatPaginatorModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatButtonModule,
+    
   ],
   providers:[
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},

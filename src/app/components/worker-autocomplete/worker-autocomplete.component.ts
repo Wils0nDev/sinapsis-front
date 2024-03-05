@@ -1,8 +1,7 @@
-import { Observable, forkJoin } from 'rxjs';
+import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { map, startWith } from 'rxjs/operators';
-import { LocalService } from 'src/shared/services/local.service';
 import * as util from 'src/shared/utils/utils';
 import { Cliente } from 'src/app/sinapsis/filtro/interfaces/cliente.interface';
 import { ClienteService } from 'src/app/sinapsis/filtro/services/cliente.service';
@@ -27,7 +26,6 @@ export class WorkerAutocompleteComponent implements OnInit {
   permissionUser: string = '';
   isKeyLocal! : boolean 
   constructor(
-    private localService : LocalService,
     private clienteService : ClienteService,
   ) {
     this.Tools = util
@@ -63,7 +61,7 @@ export class WorkerAutocompleteComponent implements OnInit {
     })
   }
 
-  heroChange = (cliente: Cliente) => {
+  clienteChange = (cliente: Cliente) => {
     this.changeAutoComplete.emit(cliente);
   };
 
