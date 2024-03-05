@@ -1,4 +1,5 @@
 
 export const EndPoint =  { 
-    Heros : 'heroes/'
+    Cliente : 'cliente/',
+    Filter : 'filter/'
 }

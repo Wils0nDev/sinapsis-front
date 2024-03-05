@@ -1,0 +1,197 @@
+<h1>Listado de Mensajes</h1>
+<mat-divider></mat-divider>
+
+<div class="grid bm-12">
+  <div class="col p-4">
+    <mat-card>
+      <mat-card-content>
+        <div class="col" style="text-align: right">
+          <div class="col-12" class="button_action_flex">
+            <button
+              mat-icon-button
+              type="button"
+              class="btn btn-success"
+              color="primary"
+              (click)="search()"
+            >
+              <mat-icon>search</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              [ngClass]="{ rotate180: !isHidden, 'rotate-back': isHidden }"
+              (click)="isHidden = !isHidden"
+              color="primary"
+              matTooltip="Filtros"
+            >
+              <mat-icon>arrow_downward</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <form [formGroup]="searchForm" [hidden]="isHidden">
+          <div class="grid flex">
+            <div class="col-12 md:col-12 lg:col-3">
+              <app-worker-autocomplete
+                [formulario]="searchForm"
+                name="searchCliente"
+                (changeAutoComplete)="clienteSelect($event)"
+              >
+              </app-worker-autocomplete>
+            </div>
+            <div class="col-12 md:col-12 lg:col-3">
+              <mat-form-field [appearance]="'outline'">
+                <mat-label>Fecha de envío</mat-label>
+                <input
+                  matInput
+                  #searchDateStart
+                  formControlName="searchDateStart"
+                  [matDatepicker]="picker1"
+                  matTooltip="Ingrese una fecha"
+                />
+                <button
+                  mat-button
+                  mat-icon-button
+                  matSuffix
+                  (click)="Tools.clearForm(searchForm, 'searchDateStart')"
+                  *ngIf="searchDateStart.value"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-error
+                  *ngIf="
+                    searchForm.controls.searchDateStart.invalid &&
+                    searchForm.controls.searchDateStart.touched
+                  "
+                >
+                  {{ Tools.getErrorMessage(searchForm, "searchDateStart") }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 md:col-12 lg:col-3">
+              <mat-form-field [appearance]="'outline'">
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="typeState">
+                  <mat-option
+                    *ngFor="let estado of lstState"
+                    [value]="estado.value"
+                  >
+                    {{ estado.description }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12 md:col-12 lg:col-3">
+              <mat-form-field [appearance]="'outline'">
+                <mat-label>Estado de envío</mat-label>
+                <mat-select formControlName="statusSendMessage" >
+                  <mat-option
+                    *ngFor="let estado of lstStateEnvio"
+                    [value]="estado.value"
+                  >
+                    {{ estado.description }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="col-12 p-3">
+    <div class="mat-elevation-z8">
+      <mat-table [dataSource]="dataSource">
+        <!-- User name Definition -->
+
+        <!-- Age Definition -->
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.campania.usuario.cliente.id }} </mat-cell>
+        </ng-container>
+
+        <!-- Title Definition -->
+        <ng-container matColumnDef="cliente">
+          <mat-header-cell *matHeaderCellDef> Cliente </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.campania.usuario.cliente.nombre }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="usuario">
+          <mat-header-cell *matHeaderCellDef> Usuario </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.campania.usuario.usuario }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="campania">
+          <mat-header-cell *matHeaderCellDef> Campaña </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.campania.nombre }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="mensaje">
+          <mat-header-cell *matHeaderCellDef> Mensaje </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.mensaje }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="estado">
+          <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ getEstado(row.estado) }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="estado_envio">
+          <mat-header-cell *matHeaderCellDef> Estado de Envio </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{  getEstadoEnvio(row.estadoEnvio) }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="fecha_envio">
+          <mat-header-cell *matHeaderCellDef> Fecha de Envio </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.fechaHoraEnvio |  date:"MMM dd, yyyy 'at' hh:mm a" }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="first_appearance">
+          <mat-header-cell *matHeaderCellDef>
+            Primera Aparición
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.first_appearance }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="characters">
+          <mat-header-cell *matHeaderCellDef> Caracteristicas </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.characters }} </mat-cell>
+        </ng-container>
+
+        <!-- Header and Row Declarations -->
+        <mat-header-row
+          *matHeaderRowDef="[
+            'id',
+            'cliente',
+            'usuario',
+            'campania',
+            'mensaje',
+            'estado',
+            'estado_envio',
+            'fecha_envio'
+          ]"
+        ></mat-header-row>
+        <mat-row
+          *matRowDef="
+            let row;
+            columns: [
+              'id',
+              'cliente',
+              'usuario',
+              'campania',
+              'mensaje',
+              'estado',
+              'estado_envio',
+              'fecha_envio',
+            ]
+          "
+        ></mat-row>
+      </mat-table>
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        aria-label="Select page of users"
+      ></mat-paginator>
+    </div>
+  </div>
+</div>

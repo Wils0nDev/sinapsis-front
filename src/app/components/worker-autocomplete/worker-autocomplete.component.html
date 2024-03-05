@@ -1,7 +1,6 @@
-<mat-form-field appearance="outline" [formGroup]="formulario"
-
+  <mat-form-field appearance="outline" [formGroup]="formulario"
 >
-  <mat-label>Heroes</mat-label>
+  <mat-label>Clientes</mat-label>
   <input
     #searchHero
     type="text"
@@ -19,20 +18,19 @@
   >
   <mat-icon>delete</mat-icon>
   </button>
-
+  
   <mat-autocomplete
     autoActiveFirstOption
     #autoWorker="matAutocomplete"
 
   >
     <mat-option
-      *ngFor="let hero of filteredHero | async"
-      [value]="hero"
-      (onSelectionChange)="heroChange(hero)"
+      *ngFor="let cliente of filteredCliete | async"
+      [value]="cliente.nombre"
+      (onSelectionChange)="heroChange(cliente)"
     >
-      {{hero }}
+      {{cliente.nombre }}
     </mat-option>
   </mat-autocomplete>
 
 </mat-form-field>
-

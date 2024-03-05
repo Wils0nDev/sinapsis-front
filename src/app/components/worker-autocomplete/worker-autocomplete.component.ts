@@ -4,6 +4,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { map, startWith } from 'rxjs/operators';
 import { LocalService } from 'src/shared/services/local.service';
 import * as util from 'src/shared/utils/utils';
+import { Cliente } from 'src/app/sinapsis/filtro/interfaces/cliente.interface';
+import { ClienteService } from 'src/app/sinapsis/filtro/services/cliente.service';
 
 @Component({
   selector: 'app-worker-autocomplete',
@@ -16,16 +18,17 @@ export class WorkerAutocompleteComponent implements OnInit {
   @Input() formulario!: FormGroup;
   @Input() name: string = '';
 
-  @Output() changeAutoComplete: EventEmitter<String> = new EventEmitter();
+  @Output() changeAutoComplete: EventEmitter<Cliente> = new EventEmitter();
 
   Tools: any;
-  filteredHero: Observable<any[]> | undefined;
-  listHero: any[] = [];
+  filteredCliete: Observable<any[]> | undefined;
+  listClient: Cliente[] = [];
 
   permissionUser: string = '';
   isKeyLocal! : boolean 
   constructor(
-    private localService : LocalService
+    private localService : LocalService,
+    private clienteService : ClienteService,
   ) {
     this.Tools = util
   }
@@ -34,42 +37,51 @@ export class WorkerAutocompleteComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.loadHero()
+    this.loadClientes()
 
   }
 
   ngAfterViewInit(): void {
-    this.filteredHero = this.formulario.get(this.name)?.valueChanges.pipe(
+    this.filteredCliete = this.formulario.get(this.name)?.valueChanges.pipe(
       startWith(''),
-      map((Key) => this._filterWorker(Key))
+      map((Key) => {
+        return this._filterWorker(Key)
+      })
     );
   }
 
-  loadHero =  () => {
-   setTimeout(() => {
-    this.listHero = this.localService.getJsonValue('name-heros')
-   }, 1000);
-    
-   
-  };
+  loadClientes = ()=> {
+    this.clienteService.getClientes()
+    .subscribe({
+      next:(clientes)=>{
+        this.listClient = clientes
+        console.log(this.listClient)
+      },
+      complete : ()=> {
+        console.log('completado')
+      },
+    })
+  }
 
-  heroChange = (d: any) => {
-    this.changeAutoComplete.emit(d);
+  heroChange = (cliente: Cliente) => {
+    this.changeAutoComplete.emit(cliente);
   };
 
   private _filterWorker(value: any) {
     value = value == null ? '' : value;
     if (value.length > 2) {
-      const valueArr = this.listHero.filter(
-        (name:any) => this.filterHero(name,value)
-      );
-      return valueArr
+      return this.listClient.filter(
+        (d:any) => {
+        
+          return this.filterClient(d.nombre, value)
+        }    );
     } else {
       return [];
     }
   }
 
-  filterHero(name: string, value: string) {
+  
+  filterClient(name: string, value: string) {
     let splitNames = name.split(' ');
     let splitValues = value.split(' ');
     let exist = false;
@@ -77,7 +89,6 @@ export class WorkerAutocompleteComponent implements OnInit {
       let element = splitNames.filter((x) =>
         x.toLowerCase().trim().includes(splitValues[index].toLowerCase().trim())
       );
-
       if (element.length > 0) {
         exist = true;
       } else {

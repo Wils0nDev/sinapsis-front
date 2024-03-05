@@ -7,11 +7,11 @@ const routes: Routes = [{
   component:LayoutComponent,
   children: [
 
-    { path: '', redirectTo: 'hero', pathMatch: 'full' },
+    { path: '', redirectTo: 'filtro', pathMatch: 'full' },
     {
-      path: 'hero',
+      path: 'filtro',
       loadChildren: () =>
-        import('src/app/sermaluc/hero/hero.module').then((m) => m.HeroModule),
+        import('src/app/sinapsis/filtro/filtro.module').then((m) => m.HeroModule),
        //canActivate: [AuthGuard],
     },
   ]

@@ -5,7 +5,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./sermaluc/layout/layout.module').then((m) => m.LayoutModule),
+      import('./sinapsis/layout/layout.module').then((m) => m.LayoutModule),
   },
   {
     path: '',

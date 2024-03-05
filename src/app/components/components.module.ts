@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { WorkerAutocompleteComponent } from './worker-autocomplete/worker-autocomplete.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SnackbarComponent } from './snackbar/snackbar.component';
-import { DialogResponseComponent } from './dialog-response/dialog-response.component';
 
 
 
@@ -15,7 +14,6 @@ import { DialogResponseComponent } from './dialog-response/dialog-response.compo
     OptionsComponent,
     WorkerAutocompleteComponent,
     SnackbarComponent,
-    DialogResponseComponent
   ],
   imports: [
     CommonModule,

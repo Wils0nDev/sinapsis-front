@@ -11,7 +11,6 @@ export class OptionsComponent  {
   @Input() option! : any
   public listOptions : MenuOptions[] = [
     {label: 'Listado',icon: 'label',url: './hero/list', },
-    {label: 'Registrar',icon: 'label',url: './hero/register'},
    ]
 
  
